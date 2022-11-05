@@ -1,0 +1,13 @@
+03:34:43 **** Incremental Build of configuration Debug for project Midterm ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/fsm_midterm.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/fsm_midterm.d" -MT"Core/Src/fsm_midterm.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/fsm_midterm.o"
+../Core/Src/fsm_midterm.c: In function 'fsm_simple_buttons_run':
+../Core/Src/fsm_midterm.c:33:13: error: 'INC' undeclared (first use in this function)
+   33 |    status = INC;
+      |             ^~~
+../Core/Src/fsm_midterm.c:33:13: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:49: Core/Src/fsm_midterm.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+03:34:44 Build Failed. 2 errors, 0 warnings. (took 300ms)
+
