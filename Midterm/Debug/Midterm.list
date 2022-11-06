@@ -336,7 +336,7 @@ void getKeyInput() {
  800031c:	20000030 	.word	0x20000030
 
 08000320 <display7SEG>:
- *      Author: dell
+ *      Author: user
  */
 
 #include "display.h"
@@ -461,7 +461,7 @@ void display7SEG(int counter) {
  80003f0:	40010c00 	.word	0x40010c00
 
 080003f4 <led_blinky>:
- *      Author: dell
+ *      Author: user
  */
 
 #include "fsm_midterm.h"
@@ -469,7 +469,6 @@ void display7SEG(int counter) {
 void led_blinky() {
  80003f4:	b580      	push	{r7, lr}
  80003f6:	af00      	add	r7, sp, #0
-	// Cu sau 0.5s, den RED_LED se chuyen doi trang thai (chu ki sang tat se la 1s)
 	if (timer_flag[1] == 1) {
  80003f8:	4b07      	ldr	r3, [pc, #28]	; (8000418 <led_blinky+0x24>)
  80003fa:	685b      	ldr	r3, [r3, #4]
@@ -496,7 +495,7 @@ void led_blinky() {
 void fsm_simple_buttons_run() {
  8000420:	b580      	push	{r7, lr}
  8000422:	af00      	add	r7, sp, #0
-	switch(status) { 					// Xet bien the hien trang thai hien gio cua finite state machine
+	switch(status) {
  8000424:	4b6e      	ldr	r3, [pc, #440]	; (80005e0 <fsm_simple_buttons_run+0x1c0>)
  8000426:	681b      	ldr	r3, [r3, #0]
  8000428:	2b0b      	cmp	r3, #11
@@ -515,27 +514,26 @@ void fsm_simple_buttons_run() {
  8000458:	080005d3 	.word	0x080005d3
  800045c:	080005d3 	.word	0x080005d3
  8000460:	08000551 	.word	0x08000551
-
-	case INIT: // INIT
-		display7SEG(counter); 			// Hien thi gia tri counter ra LED 7 doan
+	case INIT:
+		display7SEG(counter);
  8000464:	4b5f      	ldr	r3, [pc, #380]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  8000466:	681b      	ldr	r3, [r3, #0]
  8000468:	4618      	mov	r0, r3
  800046a:	f7ff ff59 	bl	8000320 <display7SEG>
-		status = CURRENT;				// Trang thai tiep theo: CURRENT
+		status = CURRENT;
  800046e:	4b5c      	ldr	r3, [pc, #368]	; (80005e0 <fsm_simple_buttons_run+0x1c0>)
  8000470:	2201      	movs	r2, #1
  8000472:	601a      	str	r2, [r3, #0]
 		break;
  8000474:	e0b2      	b.n	80005dc <fsm_simple_buttons_run+0x1bc>
 
-	case CURRENT: // CURRENT
-		display7SEG(counter);			// Hien thi gia tri counter ra LED 7 doan
+	case CURRENT:
+		display7SEG(counter);
  8000476:	4b5b      	ldr	r3, [pc, #364]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  8000478:	681b      	ldr	r3, [r3, #0]
  800047a:	4618      	mov	r0, r3
  800047c:	f7ff ff50 	bl	8000320 <display7SEG>
-		if (isButtonPressed(0) == 1) { 	// Neu nut RES duoc nhan, chuyen trang thai status sang RESET_STATE, dong thoi ta dat lai setTimer cho dieu kien chuyen sang trang thai AUTO sang 10s
+		if (isButtonPressed(0) == 1) {
  8000480:	2000      	movs	r0, #0
  8000482:	f7ff fe63 	bl	800014c <isButtonPressed>
  8000486:	4603      	mov	r3, r0
@@ -545,12 +543,12 @@ void fsm_simple_buttons_run() {
  800048c:	4b54      	ldr	r3, [pc, #336]	; (80005e0 <fsm_simple_buttons_run+0x1c0>)
  800048e:	2202      	movs	r2, #2
  8000490:	601a      	str	r2, [r3, #0]
-			setTimer(0, 10000);			// 10s
+			setTimer(0, 10000);
  8000492:	f242 7110 	movw	r1, #10000	; 0x2710
  8000496:	2000      	movs	r0, #0
  8000498:	f000 f9c0 	bl	800081c <setTimer>
 		}
-		if (isButtonPressed(1) == 1) { 	// Neu nut INC duoc nhan, chuyen trang thai status sang ADD, dong thoi ta dat lai setTimer cho dieu kien chuyen sang trang thai AUTO sang 10s
+		if (isButtonPressed(1) == 1) {
  800049c:	2001      	movs	r0, #1
  800049e:	f7ff fe55 	bl	800014c <isButtonPressed>
  80004a2:	4603      	mov	r3, r0
@@ -560,12 +558,12 @@ void fsm_simple_buttons_run() {
  80004a8:	4b4d      	ldr	r3, [pc, #308]	; (80005e0 <fsm_simple_buttons_run+0x1c0>)
  80004aa:	2203      	movs	r2, #3
  80004ac:	601a      	str	r2, [r3, #0]
-			setTimer(0, 10000);			// 10s
+			setTimer(0, 10000);
  80004ae:	f242 7110 	movw	r1, #10000	; 0x2710
  80004b2:	2000      	movs	r0, #0
  80004b4:	f000 f9b2 	bl	800081c <setTimer>
 		}
-		if (isButtonPressed(2) == 1) {	// Neu nut DEC duoc nhan, chuyen trang thai status sang SUB, dong thoi ta dat lai setTimer cho dieu kien chuyen sang trang thai AUTO sang 10s
+		if (isButtonPressed(2) == 1) {
  80004b8:	2002      	movs	r0, #2
  80004ba:	f7ff fe47 	bl	800014c <isButtonPressed>
  80004be:	4603      	mov	r3, r0
@@ -575,12 +573,12 @@ void fsm_simple_buttons_run() {
  80004c4:	4b46      	ldr	r3, [pc, #280]	; (80005e0 <fsm_simple_buttons_run+0x1c0>)
  80004c6:	2204      	movs	r2, #4
  80004c8:	601a      	str	r2, [r3, #0]
-			setTimer(0, 10000);			// 10s
+			setTimer(0, 10000);
  80004ca:	f242 7110 	movw	r1, #10000	; 0x2710
  80004ce:	2000      	movs	r0, #0
  80004d0:	f000 f9a4 	bl	800081c <setTimer>
 		}
-		if (timer_flag[0] == 1) {		// Neu sau 10s khong co nut nao duoc nhan, ta chuyen sang trang thai AUTO
+		if (timer_flag[0] == 1) {
  80004d4:	4b44      	ldr	r3, [pc, #272]	; (80005e8 <fsm_simple_buttons_run+0x1c8>)
  80004d6:	681b      	ldr	r3, [r3, #0]
  80004d8:	2b01      	cmp	r3, #1
@@ -593,25 +591,25 @@ void fsm_simple_buttons_run() {
 		break;
  80004e2:	e078      	b.n	80005d6 <fsm_simple_buttons_run+0x1b6>
 
-	case RESET_STATE: // RESET_STATE
-		counter = 0;					// Reset "counter" ve 0
+	case RESET_STATE:
+		counter = 0;
  80004e4:	4b3f      	ldr	r3, [pc, #252]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  80004e6:	2200      	movs	r2, #0
  80004e8:	601a      	str	r2, [r3, #0]
-		display7SEG(counter);			// Hien thi gia tri counter ra LED 7 doan
+		display7SEG(counter);
  80004ea:	4b3e      	ldr	r3, [pc, #248]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  80004ec:	681b      	ldr	r3, [r3, #0]
  80004ee:	4618      	mov	r0, r3
  80004f0:	f7ff ff16 	bl	8000320 <display7SEG>
-		status = CURRENT;				// Chuyen trang thai "status" ve CURRENT
+		status = CURRENT;
  80004f4:	4b3a      	ldr	r3, [pc, #232]	; (80005e0 <fsm_simple_buttons_run+0x1c0>)
  80004f6:	2201      	movs	r2, #1
  80004f8:	601a      	str	r2, [r3, #0]
 		break;
  80004fa:	e06f      	b.n	80005dc <fsm_simple_buttons_run+0x1bc>
 
-	case ADD: // ADD
-		counter++;						// Neu gia tri "counter" la 9, thi gia tri "counter" tiep theo se la 0, nguoc lai tang gia tri "counter"
+	case ADD:
+		counter++;
  80004fc:	4b39      	ldr	r3, [pc, #228]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  80004fe:	681b      	ldr	r3, [r3, #0]
  8000500:	3301      	adds	r3, #1
@@ -625,20 +623,20 @@ void fsm_simple_buttons_run() {
  800050e:	4b35      	ldr	r3, [pc, #212]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  8000510:	2200      	movs	r2, #0
  8000512:	601a      	str	r2, [r3, #0]
-		display7SEG(counter);			// Hien thi gia tri counter ra LED 7 doan
+		display7SEG(counter);
  8000514:	4b33      	ldr	r3, [pc, #204]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  8000516:	681b      	ldr	r3, [r3, #0]
  8000518:	4618      	mov	r0, r3
  800051a:	f7ff ff01 	bl	8000320 <display7SEG>
-		status = CURRENT;				// Chuyen trang thai "status" ve CURRENT
+		status = CURRENT;
  800051e:	4b30      	ldr	r3, [pc, #192]	; (80005e0 <fsm_simple_buttons_run+0x1c0>)
  8000520:	2201      	movs	r2, #1
  8000522:	601a      	str	r2, [r3, #0]
 		break;
  8000524:	e05a      	b.n	80005dc <fsm_simple_buttons_run+0x1bc>
 
-	case SUB: // SUB
-		counter--;						// Neu gia tri "counter" la 0, thi gia tri "counter" tiep theo se la 9, nguoc lai giam gia tri "counter"
+	case SUB:
+		counter--;
  8000526:	4b2f      	ldr	r3, [pc, #188]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  8000528:	681b      	ldr	r3, [r3, #0]
  800052a:	3b01      	subs	r3, #1
@@ -652,20 +650,20 @@ void fsm_simple_buttons_run() {
  8000538:	4b2a      	ldr	r3, [pc, #168]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  800053a:	2209      	movs	r2, #9
  800053c:	601a      	str	r2, [r3, #0]
-		display7SEG(counter);			// Hien thi gia tri counter ra LED 7 doan
+		display7SEG(counter);
  800053e:	4b29      	ldr	r3, [pc, #164]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  8000540:	681b      	ldr	r3, [r3, #0]
  8000542:	4618      	mov	r0, r3
  8000544:	f7ff feec 	bl	8000320 <display7SEG>
-		status = CURRENT;				// Chuyen trang thai "status" ve CURRENT
+		status = CURRENT;
  8000548:	4b25      	ldr	r3, [pc, #148]	; (80005e0 <fsm_simple_buttons_run+0x1c0>)
  800054a:	2201      	movs	r2, #1
  800054c:	601a      	str	r2, [r3, #0]
 		break;
  800054e:	e045      	b.n	80005dc <fsm_simple_buttons_run+0x1bc>
 
-	case AUTO: // AUTO
-		if (counter > 0) counter--;		// Neu gia tri "counter" > 0, thi gia tri "counter" tiep theo se giam di 1 don vi
+	case AUTO:
+		if (counter > 0) counter--;
  8000550:	4b24      	ldr	r3, [pc, #144]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  8000552:	681b      	ldr	r3, [r3, #0]
  8000554:	2b00      	cmp	r3, #0
@@ -675,21 +673,21 @@ void fsm_simple_buttons_run() {
  800055c:	3b01      	subs	r3, #1
  800055e:	4a21      	ldr	r2, [pc, #132]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  8000560:	6013      	str	r3, [r2, #0]
-										// Con neu "counter" == 0, thì "counter" se duoc giu nguyen
-		display7SEG(counter);			// Hien thi gia tri counter ra LED 7 doan
+
+		display7SEG(counter);
  8000562:	4b20      	ldr	r3, [pc, #128]	; (80005e4 <fsm_simple_buttons_run+0x1c4>)
  8000564:	681b      	ldr	r3, [r3, #0]
  8000566:	4618      	mov	r0, r3
  8000568:	f7ff feda 	bl	8000320 <display7SEG>
-		setTimer(0,1000);				// setTimer cho nhung lan tu dong thay doi "counter" tiep theo la 1s
+		setTimer(0,1000);
  800056c:	f44f 717a 	mov.w	r1, #1000	; 0x3e8
  8000570:	2000      	movs	r0, #0
  8000572:	f000 f953 	bl	800081c <setTimer>
-		status = CURRENT;				// Neu trong qua trinh nay khong xay ra nhan nut nao, thi "status" se duoc chuyen ve CURRENT
+		status = CURRENT;
  8000576:	4b1a      	ldr	r3, [pc, #104]	; (80005e0 <fsm_simple_buttons_run+0x1c0>)
  8000578:	2201      	movs	r2, #1
  800057a:	601a      	str	r2, [r3, #0]
-		if (isButtonPressed(0) == 1) {	// Neu nut RES duoc nhan, chuyen trang thai status sang RESET_STATE, dong thoi ta dat lai setTimer cho dieu kien chuyen sang trang thai AUTO thanh 10s
+		if (isButtonPressed(0) == 1) {
  800057c:	2000      	movs	r0, #0
  800057e:	f7ff fde5 	bl	800014c <isButtonPressed>
  8000582:	4603      	mov	r3, r0
@@ -704,7 +702,7 @@ void fsm_simple_buttons_run() {
  8000592:	2000      	movs	r0, #0
  8000594:	f000 f942 	bl	800081c <setTimer>
 		}
-		if (isButtonPressed(1) == 1) {	// Neu nut INC duoc nhan, chuyen trang thai status sang ADD, dong thoi ta dat lai setTimer cho dieu kien chuyen sang trang thai AUTO thanh 10s
+		if (isButtonPressed(1) == 1) {
  8000598:	2001      	movs	r0, #1
  800059a:	f7ff fdd7 	bl	800014c <isButtonPressed>
  800059e:	4603      	mov	r3, r0
@@ -719,7 +717,7 @@ void fsm_simple_buttons_run() {
  80005ae:	2000      	movs	r0, #0
  80005b0:	f000 f934 	bl	800081c <setTimer>
 		}
-		if (isButtonPressed(2) == 1) {	// Neu nut DEC duoc nhan, chuyen trang thai status sang SUB, dong thoi ta dat lai setTimer cho dieu kien chuyen sang trang thai AUTO thanh 10s
+		if (isButtonPressed(2) == 1) {
  80005b4:	2002      	movs	r0, #2
  80005b6:	f7ff fdc9 	bl	800014c <isButtonPressed>
  80005ba:	4603      	mov	r3, r0

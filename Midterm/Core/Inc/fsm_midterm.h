@@ -2,7 +2,7 @@
  * fsm_manual.h
  *
  *  Created on: Nov 5, 2022
- *      Author: dell
+ *      Author: user
  */
 
 #ifndef INC_FSM_MIDTERM_H_

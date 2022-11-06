@@ -2,7 +2,7 @@
  * display.h
  *
  *  Created on: Nov 1, 2022
- *      Author: dell
+ *      Author: user
  */
 
 #ifndef INC_DISPLAY_H_

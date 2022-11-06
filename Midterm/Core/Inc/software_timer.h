@@ -2,7 +2,7 @@
  * software_timer.h
  *
  *  Created on: Sep 30, 2022
- *      Author: Admin
+ *      Author: user
  */
 
 #ifndef INC_SOFTWARE_TIMER_H_

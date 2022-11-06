@@ -2,7 +2,7 @@
  * display.c
  *
  *  Created on: Nov 1, 2022
- *      Author: dell
+ *      Author: user
  */
 
 #include "display.h"
